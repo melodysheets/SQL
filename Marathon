@@ -29,3 +29,21 @@ SELECT participant_name
 , ROUND(completion_fraction*100,1) AS completion_percentage
 FROM marathon
 ;
+
+--For this query, show how many employees completed each quarter of the marathon (75% or more, 50%, 25%, or under 25%).
+--You can output the quarter_completed by using CASE with the completion_fraction column.
+--You can output '75%+' for completing >= .75,
+--'50%+' for completing >= .50,
+--'25%+' for completing >= .25,
+--and 'Under 25%' otherwise.
+--Use COUNT and GROUP BY to show the number of employees within each of those quarters.
+
+SELECT COUNT(*)
+, CASE WHEN completion_fraction>=.75 THEN '75%+'
+WHEN completion_fraction>=.50 THEN '50%+'
+WHEN completion_fraction>=.25 THEN '25%+'
+ELSE "Under 25%"
+END AS quarter_completed
+FROM marathon
+GROUP BY quarter_completed
+;
