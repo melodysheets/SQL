@@ -22,3 +22,10 @@ SELECT participant_name
 ,completion_fraction*100 AS completion_percentage
 FROM marathon
 ;
+
+-- Select every participant name and the percent of the marathon that they completed. Show the percent of the marathon completed rounded to one decimal place
+
+SELECT participant_name
+, ROUND(completion_fraction*100,1) AS completion_percentage
+FROM marathon
+;
