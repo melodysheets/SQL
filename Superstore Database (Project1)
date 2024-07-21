@@ -26,13 +26,13 @@ VALUES
     (15, 'Cozy Throw Blanket', 'Furnishings', 24.99, 100, 4.2);
 
 
-#What is the sum of the prices of all the items in inventory?
+--What is the sum of the prices of all the items in inventory?
 
 SELECT SUM(price)
 FROM superstore
 ;
 
-#What is the sum of the prices of Kitchen Supplies?
+--What is the sum of the prices of Kitchen Supplies?
 
 SELECT SUM(price)
 FROM superstore
@@ -40,7 +40,7 @@ WHERE category = "Kitchen Supplies"
 ;
 
 
-#What are the top three items with prices greater than $50 and their ratings from largest to smallest?
+--What are the top three items with prices greater than $50 and their ratings from largest to smallest?
 
 SELECT item_name
 ,price
