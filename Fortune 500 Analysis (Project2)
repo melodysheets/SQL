@@ -58,31 +58,59 @@ VALUES
 
 
 
---Used SQL to find which companies across all industries have the greatest employee retention.
+
+
+--Which company in the technology industry has the greatest revenue?
+SELECT company_name, MAX(revenue) AS revenue
+FROM fortune_companies
+WHERE industry="Technology"
+;
+--Here I aggregated data to find which tech company was producing the greatest revenue.
+
+
+
+
+--Which companies across all industries have the greatest employee retention?
 SELECT company_name, industry, MAX(avg_employee_tenure) AS tenure
 FROM fortune_companies
 GROUP BY industry
 ;
+--Here I used SQL to find which companies across all industries have the greatest employee retention. 
 
--- This query aggregates data to figure average number of employees across each industry
+
+
+
+--what is the average number of employees across all industries?
 SELECT industry, ROUND(AVG(employees)) AS avg_employees
 FROM fortune_companies
 GROUP BY industry
 ;
+--Here I aggregated data to figure the average number of employees across each industry.
 
---Here I aggregated data to find relevant industries where the average number of employees was at least 100,000 employees or greater.
+
+
+
+
+--Which industries have an average number of employees that are at least 100,000 employees or greater.
 SELECT industry, ROUND(AVG(employees)) AS avg_employees
 FROM fortune_companies
 GROUP BY industry
 HAVING avg_employees>=100000
 ;
+--Here I aggregated data to find relevant industries where the average number of employees was at least 100,000 employees or greater.
 
---Used SQL to find which industry has more than 500,000 employees.
+
+
+
+
+--What industries have more than 500,000 employees?
 SELECT industry, sum(employees) AS total_employees
 FROM fortune_companies
 GROUP BY industry
 HAVING total_employees>500000
 ;
+
+
 
 --Here I aggregated data to compare the average pto each industry offers
 SELECT industry, ROUND(AVG(paid_time_off_days)) AS average_pto
