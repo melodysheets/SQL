@@ -57,13 +57,56 @@ VALUES
     ('Company KK', 'Healthcare', 150.2, 3400, 0, 16, 8, 5.3);
 
 
---Group the data in a new way using a CASE statement.
---Use a HAVING clause to determine something interesting about the data per category.
---Use logical operators like AND or OR to filter the data in an interesting way.
---Use an aggregate function like AVG, SUM, COUNT, MAX, and/or MIN to return summary statistics about the data.
 
+--Used SQL to find which companies across all industries have the greatest employee retention.
+SELECT company_name, industry, MAX(avg_employee_tenure) AS tenure
+FROM fortune_companies
+GROUP BY industry
+;
 
---Using a case statement to separate company size (large, medium, small) based on number of employees.
+-- This query aggregates data to figure average number of employees across each industry
+SELECT industry, ROUND(AVG(employees)) AS avg_employees
+FROM fortune_companies
+GROUP BY industry
+;
+
+--Here I aggregated data to find relevant industries where the average number of employees was at least 100,000 employees or greater.
+SELECT industry, ROUND(AVG(employees)) AS avg_employees
+FROM fortune_companies
+GROUP BY industry
+HAVING avg_employees>=100000
+;
+
+--Used SQL to find which industry has more than 500,000 employees.
+SELECT industry, sum(employees) AS total_employees
+FROM fortune_companies
+GROUP BY industry
+HAVING total_employees>500000
+;
+
+--Here I aggregated data to compare the average pto each industry offers
+SELECT industry, ROUND(AVG(paid_time_off_days)) AS average_pto
+FROM fortune_companies
+GROUP BY industry
+;
+
+--Here I found the companies that had >= 15 pto days AND >=10 weeks of maternity leave
+SELECT company_name, paid_time_off_days, maternity_leave_weeks
+FROM fortune_companies
+WHERE paid_time_off_days>=15
+AND maternity_leave_weeks>=12
+ORDER BY company_name
+;
+
+--Here I found comanies that have >=20 pto days OR offered healthcare_benefits.
+SELECT company_name, paid_time_off_days
+FROM fortune_companies
+WHERE paid_time_off_days>=20
+OR healthcare_benefits=1
+ORDER BY company_name
+;
+
+--Here I utilized a case statement to separate company size (large, medium, small) based on number of employees.
 SELECT company_name, employees,
 CASE WHEN employees>=150000 THEN "large"
 WHEN employees>=10000 THEN "medium"
@@ -73,11 +116,20 @@ FROM fortune_companies
 ORDER BY employees DESC
 ;
 
---Used SQL to aggregate industry revenue and sorted by descending order
+--Here I used SQL to determine company size (large_cap, medium_cap, small_cap) based of revenue
+SELECT company_name, revenue,
+CASE WHEN revenue>=300 THEN "large_cap"
+WHEN revenue>=200 THEN "medium_cap"
+ELSE "small_cap"
+END AS company_size
+FROM fortune_companies
+ORDER BY company_size
+;
+
+--Here I used SQL to aggregate industry revenue based on industries that have a industry revenue sum greater than 200.
 SELECT industry, SUM(ROUND(revenue)) AS industry_revenue_sum
 FROM fortune_companies
 GROUP BY industry
 HAVING revenue>=200
 ORDER BY industry_revenue_sum DESC
 ;
-
