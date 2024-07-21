@@ -26,7 +26,7 @@ VALUES
     (15, 'Auto Loan', 'Loan', 4.25, 0.00, 20000.00);
 
 
-#A client is wanting to know what products the bank has that are either checking or savings accounts.
+--A client is wanting to know what products the bank has that are either checking or savings accounts.
 
 SELECT product_name
 FROM bank_products
@@ -34,8 +34,7 @@ WHERE product_type="Checking"
 OR product_type="Savings"
 ;
 
-
-#A client decides he is looking for a Savings Account that has a good interest rate and no monthly fee.
+--A client decides he is looking for a Savings Account that has a good interest rate and no monthly fee.
 
 SELECT product_name, interest_rate
 FROM bank_products
