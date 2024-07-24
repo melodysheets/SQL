@@ -92,7 +92,6 @@ ON customers.customer_ID = shipments.sender_ID
 ORDER BY customers.customer_ID asc 
 ; 
 
-
 -- Select all the customer IDs, customer names, customer emails, and shipping methods from the database, but only for the customers we have detailed shipping history for (ie, customers for whom we have information in the shipments table). Your results should be in order by customer ID. 
 
 SELECT distinct customer_id, customer_name, contact_email, shipping_method
@@ -136,6 +135,3 @@ ON customers.customer_ID = shipments.sender_ID
 WHERE shipments.shipping_method = 'Standard' 
 ORDER BY customers.customer_ID asc 
 ; 
-
-
-
