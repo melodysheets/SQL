@@ -96,3 +96,45 @@ ELSE "Improvements needed"
 END AS Recommendation
 FROM CityBikeLanes
 ;
+
+
+-- Prompt engineering:
+
+-- I asked ChatGPT:
+
+I am writing a query to show a list of all the bike lanes that have an average safety rating of 4.0 or higher. As well as the average safety rating for each of those bike lanes, and a label that says "Safe Lane". 
+
+The table I'm querying has the following columns: id, year_installed, year_updated, street, width_feet, safetyrating, protected.
+
+The query I wrote has no results:
+WITH safety_average_cte AS (
+SELECT street, AVG(safetyrating) as 'rating'
+FROM citybikelanes)
+
+SELECT 
+street,
+rating,
+'safe lane' as 'label'
+FROM safety_average_cte
+WHERE rating >=4
+
+
+
+
+-- and ChatGPT responded with a correct query as well as further explaination as to the difference between what I submitted and its result:
+
+WITH safety_average_cte AS (
+    SELECT
+        street,
+        AVG(safetyrating) AS rating
+    FROM citybikelanes
+    GROUP BY street
+)
+
+SELECT 
+    street,
+    rating,
+    'Safe Lane' AS label
+FROM safety_average_cte
+WHERE rating >= 4.0;
+
